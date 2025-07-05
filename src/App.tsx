@@ -1,6 +1,6 @@
 /** @format */
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import DesktopIcon from './components/DesktopIcon';
 import WindowApp from './components/WindowApp';
 
@@ -12,8 +12,6 @@ import startIcon from './assets/icon-start.png';
 import Taskbar from './components/Taskbar';
 
 function App() {
-	const [currentTime, setCurrentTime] = useState(new Date());
-
 	const [isCVOpen, setIsCVOpen] = useState(false);
 	const [isCVMinimized, setIsCVMinimized] = useState(false);
 
@@ -30,14 +28,6 @@ function App() {
 	const handleMinimizeCV = () => {
 		setIsCVMinimized(true);
 	};
-
-	useEffect(() => {
-		const interval = setInterval(() => {
-			setCurrentTime(new Date());
-		}, 1000);
-
-		return () => clearInterval(interval);
-	}, []);
 
 	return (
 		<main className="w-screen h-screen bg-gradient-to-br from-sky-700 to-blue-900 overflow-hidden flex flex-col">
@@ -66,7 +56,6 @@ function App() {
 
 			{/* Taskbar */}
 			<Taskbar
-				currentTime={currentTime}
 				isCVOpen={isCVOpen}
 				onClickCV={handleOpenCV}
 				startIcon={startIcon}

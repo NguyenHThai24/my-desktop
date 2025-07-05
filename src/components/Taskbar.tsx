@@ -1,6 +1,6 @@
 /** @format */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 type TaskbarProps = {
 	currentTime: Date;
@@ -10,13 +10,17 @@ type TaskbarProps = {
 	cvIcon: string;
 };
 
-const Taskbar = ({
-	currentTime,
-	isCVOpen,
-	onClickCV,
-	startIcon,
-	cvIcon,
-}: TaskbarProps) => {
+const Taskbar = ({ isCVOpen, onClickCV, startIcon, cvIcon }: TaskbarProps) => {
+	const [currentTime, setCurrentTime] = useState(new Date());
+
+	useEffect(() => {
+		const interval = setInterval(() => {
+			setCurrentTime(new Date());
+		}, 1000);
+
+		return () => clearInterval(interval);
+	}, []);
+
 	return (
 		<section className="h-12 px-4 bg-gray-300 text-black flex items-center justify-between gap-4">
 			{/* Start button */}
@@ -50,8 +54,8 @@ const Taskbar = ({
 
 			{/* Clock */}
 			<div className="ml-auto text-right leading-tight text-[13px] font-semibold">
-				<div>{currentTime.toLocaleTimeString()}</div>
 				<div>{currentTime.toLocaleDateString()}</div>
+				<div className="">{currentTime.toLocaleTimeString()}</div>
 			</div>
 		</section>
 	);
