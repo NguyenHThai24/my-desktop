@@ -1,14 +1,15 @@
 /** @format */
 
-import { X, Minus, Maximize2, Minimize2 } from 'lucide-react';
 import React, { useState } from 'react';
 import { Rnd } from 'react-rnd';
+import { X, Minus, Maximize2, Minimize2 } from 'lucide-react';
 
 type WindowAppProps = {
 	title: string;
+	children?: React.ReactNode;
 	onClose: () => void;
 	onMinimize: () => void;
-	children?: React.ReactNode;
+	style?: React.CSSProperties;
 };
 
 const WindowApp = ({
@@ -16,6 +17,7 @@ const WindowApp = ({
 	children,
 	onClose,
 	onMinimize,
+	style = {},
 }: WindowAppProps) => {
 	const [isMaximized, setIsMaximized] = useState(false);
 
@@ -26,9 +28,7 @@ const WindowApp = ({
 		height: 500,
 	};
 
-	const handleToggleMaximize = () => {
-		setIsMaximized((prev) => !prev);
-	};
+	const handleToggleMaximize = () => setIsMaximized((prev) => !prev);
 
 	return (
 		<Rnd
@@ -40,34 +40,31 @@ const WindowApp = ({
 			minWidth={300}
 			minHeight={200}
 			bounds="window"
-			className="z-50">
+			className="absolute"
+			style={style}>
 			<div className="bg-white shadow-lg rounded-md border flex flex-col h-full">
-				{/* Title Bar */}
 				<div className="flex justify-between items-center bg-blue-600 text-white px-3 py-2 rounded-t-md cursor-move">
 					<span className="font-semibold">{title}</span>
 					<div className="flex gap-2">
 						<button
 							type="button"
-							onClick={onMinimize}
-							aria-label="Minimize">
+							aria-label="Minimize"
+							onClick={onMinimize}>
 							<Minus size={16} />
 						</button>
 						<button
 							type="button"
-							onClick={handleToggleMaximize}
-							aria-label="Maximize">
+							onClick={handleToggleMaximize}>
 							{isMaximized ? <Minimize2 size={16} /> : <Maximize2 size={16} />}
 						</button>
 						<button
+							aria-label="Minimize"
 							type="button"
-							onClick={onClose}
-							aria-label="Close">
+							onClick={onClose}>
 							<X size={16} />
 						</button>
 					</div>
 				</div>
-
-				{/* Window Content */}
 				<div className="p-2 overflow-auto flex-1 text-black">{children}</div>
 			</div>
 		</Rnd>
