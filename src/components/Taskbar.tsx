@@ -16,9 +16,15 @@ type TaskbarProps = {
 	windows: AppWindow[];
 	onFocusWindow: (id: string) => void;
 	startIcon: string;
+	onToggleStartMenu: () => void;
 };
 
-const Taskbar = ({ windows, onFocusWindow, startIcon }: TaskbarProps) => {
+const Taskbar = ({
+	windows,
+	onFocusWindow,
+	startIcon,
+	onToggleStartMenu,
+}: TaskbarProps) => {
 	const [currentTime, setCurrentTime] = useState(new Date());
 
 	useEffect(() => {
@@ -27,9 +33,11 @@ const Taskbar = ({ windows, onFocusWindow, startIcon }: TaskbarProps) => {
 	}, []);
 
 	return (
-		<section className=" w-[40vw] mx-auto my-2 rounded-full border border-blue-400 h-12 px-7 bg-blue-200 text-white flex items-center justify-between gap-4">
+		<section className=" w-[40vw] z-999 mx-auto my-1 rounded-full border border-blue-400 h-11 px-7 bg-blue-200 text-white flex items-center justify-between gap-4">
 			<button
 				type="button"
+				onClick={onToggleStartMenu}
+				aria-label="Open Start Menu"
 				className="rounded hover:bg-white p-1 cursor-pointer">
 				<img
 					src={startIcon}

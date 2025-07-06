@@ -10,6 +10,7 @@ type WindowAppProps = {
 	onClose: () => void;
 	onMinimize: () => void;
 	style?: React.CSSProperties;
+	onMouseDown?: () => void;
 };
 
 const WindowApp = ({
@@ -18,13 +19,14 @@ const WindowApp = ({
 	onClose,
 	onMinimize,
 	style = {},
+	onMouseDown,
 }: WindowAppProps) => {
 	const [isMaximized, setIsMaximized] = useState(false);
 
 	const defaultSize = {
 		x: 100,
 		y: 100,
-		width: 900,
+		width: 500,
 		height: 500,
 	};
 
@@ -40,10 +42,11 @@ const WindowApp = ({
 			minWidth={300}
 			minHeight={200}
 			bounds="window"
+			onMouseDown={onMouseDown}
 			className="absolute"
 			style={style}>
-			<div className="bg-white shadow-lg rounded-md border flex flex-col h-full">
-				<div className="flex justify-between items-center bg-blue-600 text-white px-3 py-2 rounded-t-md cursor-move">
+			<div className="bg-white shadow-lg border flex flex-col h-full">
+				<div className="flex justify-between items-center bg-blue-600 text-white px-3 py-2 cursor-move">
 					<span className="font-semibold">{title}</span>
 					<div className="flex gap-2">
 						<button

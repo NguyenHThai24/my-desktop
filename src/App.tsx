@@ -8,6 +8,7 @@ import WindowApp from './components/WindowApp';
 import cvIcon from './assets/icon-cv.png';
 import vscodeIcon from './assets/icon-vscode.png';
 import startIcon from './assets/icon-start.png';
+import StartMenu from './components/StartMenu';
 
 type AppWindow = {
 	id: string;
@@ -21,6 +22,7 @@ type AppWindow = {
 const App = () => {
 	const [windows, setWindows] = useState<AppWindow[]>([]);
 	const [zIndexCounter, setZIndexCounter] = useState(1);
+	const [showStartMenu, setShowStartMenu] = useState(false); // dùng để hiển thị Start Menu
 
 	const openWindow = (
 		id: string,
@@ -114,7 +116,8 @@ const App = () => {
 								title={win.title}
 								onClose={() => closeWindow(win.id)}
 								onMinimize={() => minimizeWindow(win.id)}
-								style={{ zIndex: win.zIndex }}>
+								style={{ zIndex: win.zIndex }}
+								onMouseDown={() => focusWindow(win.id)}>
 								{win.content}
 							</WindowApp>
 						)
@@ -125,7 +128,9 @@ const App = () => {
 				windows={windows}
 				onFocusWindow={focusWindow}
 				startIcon={startIcon}
+				onToggleStartMenu={() => setShowStartMenu((prev) => !prev)}
 			/>
+			{showStartMenu && <StartMenu openWindow={openWindow} />}
 		</main>
 	);
 };
