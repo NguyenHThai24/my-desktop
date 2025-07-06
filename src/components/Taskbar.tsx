@@ -1,6 +1,7 @@
 /** @format */
 
 import React, { useEffect, useState } from 'react';
+import TooltipWrapper from './TooltipWrapper';
 
 type AppWindow = {
 	id: string;
@@ -26,10 +27,10 @@ const Taskbar = ({ windows, onFocusWindow, startIcon }: TaskbarProps) => {
 	}, []);
 
 	return (
-		<section className="h-12 px-4 bg-gray-300 text-black flex items-center justify-between gap-4">
+		<section className=" w-[40vw] mx-auto my-2 rounded-full border border-blue-400 h-12 px-7 bg-blue-200 text-white flex items-center justify-between gap-4">
 			<button
 				type="button"
-				className="rounded hover:bg-white p-1">
+				className="rounded hover:bg-white p-1 cursor-pointer">
 				<img
 					src={startIcon}
 					width={30}
@@ -37,23 +38,26 @@ const Taskbar = ({ windows, onFocusWindow, startIcon }: TaskbarProps) => {
 				/>
 			</button>
 
-			<div className="flex gap-2 items-center">
+			<div className="flex gap-4 items-center">
 				{windows.map((w) => (
-					<button
-						type="button"
+					<TooltipWrapper
 						key={w.id}
-						onClick={() => onFocusWindow(w.id)}
-						className="rounded hover:bg-white p-1 text-sm">
-						<img
-							src={w.icon}
-							width={30}
-							alt={w.title}
-						/>
-					</button>
+						content={w.title}>
+						<button
+							type="button"
+							onClick={() => onFocusWindow(w.id)}
+							className="rounded hover:bg-white p-1 text-sm">
+							<img
+								src={w.icon}
+								width={30}
+								alt={w.title}
+							/>
+						</button>
+					</TooltipWrapper>
 				))}
 			</div>
 
-			<div className="ml-auto text-right leading-tight text-[13px] font-semibold">
+			<div className="ml-auto text-right leading-tight text-[13px] font-bold text-black">
 				<div>{currentTime.toLocaleDateString()}</div>
 				<div>{currentTime.toLocaleTimeString()}</div>
 			</div>

@@ -74,8 +74,8 @@ const App = () => {
 	};
 
 	return (
-		<main className="w-screen h-screen bg-gradient-to-br from-sky-700 to-blue-900 overflow-hidden flex flex-col">
-			<section className="flex-1 relative p-4">
+		<main className="w-screen h-screen bg-[url('/bg.png')] bg-cover bg-center overflow-hidden flex flex-col">
+			<section className="flex-1 relative p-4 flex flex-col flex-wrap items-start justify-start gap-5">
 				<DesktopIcon
 					icon={cvIcon}
 					label="My CV"

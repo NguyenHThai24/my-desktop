@@ -17,7 +17,7 @@ const DesktopIcon = ({ icon, label, onClick }: DesktopIconProps) => (
 			width={48}
 			alt={label}
 		/>
-		<span className="text-white text-xs mt-1">{label}</span>
+		<span className="text-black text-xs font-bold mt-1">{label}</span>
 	</div>
 );
 
